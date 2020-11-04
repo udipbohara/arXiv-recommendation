@@ -25,6 +25,14 @@ MATCH p=()-[r:BELONGS_TO]->() RETURN p LIMIT 100
 //3. Topic Demo
 MATCH p=()-[r:PART_OF]->() RETURN p LIMIT 200
 
+//4.1 Author most submitted count with papers
+//return author who has submitted the most number of papers.
+MATCH (p)-[w:SUBMITTED_BY]->(submitter)
+RETURN submitter.name, COLLECT(p.id) as Paper_id, count(DISTINCT w) AS num
+ORDER BY num DESC 
+LIMIT 10
+
+
 // 4.2 Simple recommendation Query
 //Query to get all papers that have a title that are similar to it 'Dynamic Sparse Graph for Efficient Deep Learning' and belong to the same topic.
 
